@@ -96,6 +96,7 @@ export class loggerServer {
     on(severity: 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'all', handler: (msg: string) => void) {
         if (!this.listeners[severity]) this.listeners[severity] = [];
         this.listeners[severity].push(handler);
+        return this;
     }
 
     save() {

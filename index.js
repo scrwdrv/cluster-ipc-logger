@@ -69,6 +69,7 @@ class loggerServer {
         if (!this.listeners[severity])
             this.listeners[severity] = [];
         this.listeners[severity].push(handler);
+        return this;
     }
     save() {
         return new Promise((resolve, reject) => {

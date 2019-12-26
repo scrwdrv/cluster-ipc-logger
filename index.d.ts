@@ -11,7 +11,7 @@ export declare class loggerServer {
         directory: string;
         saveInterval: number;
     });
-    on(severity: 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'all', handler: (msg: string) => void): void;
+    on(severity: 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'all', handler: (msg: string) => void): this;
     save(): Promise<unknown>;
 }
 export declare class loggerClient {
