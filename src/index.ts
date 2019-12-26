@@ -61,14 +61,14 @@ export class loggerServer {
 
         for (let severity in colorMap) {
 
-            const formatLog = (arr: (string | number)[]) => {
+            const formatLog = (arr: string[]) => {
                 const isoString = new Date(Date.now() - this.timezoneOffset).toISOString(),
                     date = `${isoString.slice(0, 10)} ${isoString.slice(11, 19)}`,
                     alignedSeverity = alignText(severity.toUpperCase(), 5, ' '),
                     alignedSystem = alignText((arr[0] as string).toUpperCase(), 7, '-');
                 return {
                     raw: `${date} ¦ [${arr[1]}] ${alignedSystem} ¦ ${alignedSeverity} ¦ ${arr[2]}`,
-                    color: `${color.black + color.bright}${date} \x1b[30m\x1b[1m¦ ${arr[1] === 0 ? color.bright : color.dim}${color.cyan}[${arr[1].toString().length > 1 ? '' : '0'}${arr[1]}] ${alignedSystem} \x1b[30m\x1b[1m¦ ${colorMap[severity]}${alignedSeverity} \x1b[30m\x1b[1m¦ ${color.white}${arr[2]}`
+                    color: `${color.black + color.bright}${date} \x1b[30m\x1b[1m¦ ${arr[1] === '0' ? color.bright : color.dim}${color.cyan}[${arr[1].length > 1 ? '' : '0'}${arr[1]}] ${alignedSystem} \x1b[30m\x1b[1m¦ ${colorMap[severity]}${alignedSeverity} \x1b[30m\x1b[1m¦ ${color.white}${arr[2]}`
                 }
             }
 
