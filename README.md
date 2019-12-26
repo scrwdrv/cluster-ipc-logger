@@ -1,6 +1,9 @@
 # cluster-ipc-logger
  This logger is designed to collect logs from cluster workers, child processes even independent node.js processes through IPC (Inter-Process Communication).
 
+## Preview
+
+![cluster-ipc-logger](https://github.com/scrwdrv/cluster-ipc-logger/blob/master/preview.jpg?raw=true)
 
 ## Installation
 ```sh
@@ -94,3 +97,6 @@ log.info({
     ]
 });
 ```
+
+### Note
+```loggerClient``` will catches ```unhandledRejection``` & ```uncaughtException``` and log it as fatal. After sending it to ```loggerMaster``` it will automatically kill the client process with ```process.exit()``` (as it should be).
