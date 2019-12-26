@@ -1,0 +1,26 @@
+{
+  "name": "cluster-ipc-logger",
+  "version": "1.0.0",
+  "description": "This logger is designed to collect logs from cluster workers, child processes even independent node.js processes through IPC (Inter-Process Communication).",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scrwdrv/cluster-ipc-logger.git"
+  },
+  "keywords": [
+    "log",
+    "logger",
+    "cluster",
+    "childprocess",
+    "ipc"
+  ],
+  "author": "scrwdrv",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/scrwdrv/cluster-ipc-logger/issues"
+  },
+  "homepage": "https://github.com/scrwdrv/cluster-ipc-logger#readme"
+}
