@@ -58,6 +58,9 @@ class loggerServer {
                 if (this.listeners[severity])
                     for (let i = this.listeners[severity].length; i--;)
                         this.listeners[severity][i](log.raw);
+                if (this.listeners.all)
+                    for (let i = this.listeners.all.length; i--;)
+                        this.listeners.all[i](log.raw);
             });
         }
         recurdir.mk(this.directory).then(() => setInterval(() => this.save(), this.saveInterval)).catch(err => { throw err; });
