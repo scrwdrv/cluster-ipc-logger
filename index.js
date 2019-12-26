@@ -43,7 +43,7 @@ class loggerServer {
                 const isoString = new Date(Date.now() - this.timezoneOffset).toISOString(), date = `${isoString.slice(0, 10)} ${isoString.slice(11, 19)}`, alignedSeverity = alignText(severity.toUpperCase(), 5, ' '), alignedSystem = alignText(arr[0].toUpperCase(), 7, '-');
                 return {
                     raw: `${date} ¦ [${arr[1]}] ${alignedSystem} ¦ ${alignedSeverity} ¦ ${arr[2]}`,
-                    color: `${color.black + color.bright}${date} \x1b[30m\x1b[1m¦ ${arr[1] === 'M' ? color.bright : color.dim}${color.cyan}[${arr[1]}] ${alignedSystem} \x1b[30m\x1b[1m¦ ${colorMap[severity]}${alignedSeverity} \x1b[30m\x1b[1m¦ ${color.white}${arr[2]}`
+                    color: `${color.black + color.bright}${date} \x1b[30m\x1b[1m¦ ${arr[1] === 0 ? color.bright : color.dim}${color.cyan}[${arr[1].toString().length > 1 ? '' : '0'}${arr[1]}] ${alignedSystem} \x1b[30m\x1b[1m¦ ${colorMap[severity]}${alignedSeverity} \x1b[30m\x1b[1m¦ ${color.white}${arr[2]}`
                 };
             };
             const pendingType = severity === 'error' ? 'error' : (severity === 'fatal' ? 'fatal' : 'data');
@@ -104,8 +104,7 @@ class loggerClient {
     constructor(options) {
         for (let part in options)
             this[part] = options[part];
-        if (this.cluster === 0)
-            this.cluster = 'M';
+        //if (this.cluster === 0) this.cluster = 'M';
         this.ipcClient = new ipc.client('logger');
         for (let severity of ['info', 'warn', 'error', 'debug']) {
             this[severity] = (msg) => {
