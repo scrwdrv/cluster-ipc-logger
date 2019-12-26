@@ -1,10 +1,8 @@
 import * as ipc from 'fast-ipc';
-import { EventEmitter } from 'events';
 import * as recurdir from 'recurdir';
 import { appendFile as appendFile } from 'fs';
 import { join as PATH } from 'path';
 import safeStringify from 'fast-safe-stringify';
-
 
 type log = (msg: any) => void;
 
@@ -19,6 +17,7 @@ export class loggerServer {
         }
     } = {};
     private timezoneOffset = new Date().getTimezoneOffset() * 60000;
+    private listeners: { [severity: string]: ((msg: string) => void)[] } = {};
 
     public debug: boolean;
 
@@ -26,7 +25,7 @@ export class loggerServer {
         debug: boolean;
         directory: string;
         saveInterval: number;
-    }, emitter: EventEmitter) {
+    }) {
 
         for (let part in options)
             this[part] = options[part];
@@ -80,14 +79,20 @@ export class loggerServer {
                 this.pending[req[0]][pendingType] += log.raw + '\n';
                 if (!this.debug && severity === 'debug') return;
                 console.log(log.color);
-                emitter.emit('log', log.raw);
+                if (this.listeners[severity])
+                    for (let i = this.listeners[severity].length; i--;)
+                        this.listeners[severity][i](log.raw);
             });
         }
 
         recurdir.mk(this.directory).then(() =>
             setInterval(() => this.save(), this.saveInterval)
         ).catch(err => { throw err });
+    }
 
+    on(severity: 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'all', handler: (msg: string) => void) {
+        if (!this.listeners[severity]) this.listeners[severity] = [];
+        this.listeners[severity].push(handler);
     }
 
     save() {
@@ -122,8 +127,6 @@ export class loggerServer {
         });
     }
 }
-
-
 
 export class loggerClient {
 
@@ -170,8 +173,9 @@ export class loggerClient {
             }
         }
         for (let fatal of ['unhandledRejection', 'uncaughtException'])
-            process.on(fatal as any, (err: Error) =>
-                this.ipcClient.send('fatal', [this.system, this.cluster, '\n' + (err.stack || err)])
-            );
+            process.on(fatal as any, (err: Error) => {
+                this.ipcClient.send('fatal', [this.system, this.cluster, '\n' + (err.stack || err)]);
+                process.exit();
+            });
     }
 }
