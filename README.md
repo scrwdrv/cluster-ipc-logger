@@ -98,5 +98,5 @@ log.info({
 });
 ```
 
-### Note
+## Note
 ```loggerClient``` will catches ```unhandledRejection``` & ```uncaughtException``` and log it as fatal. After sending it to ```loggerMaster``` it will automatically kill the client process with ```process.exit()``` (as it should be).
