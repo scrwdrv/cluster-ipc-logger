@@ -2,7 +2,6 @@ import * as ipc from 'fast-ipc';
 import * as recurdir from 'recurdir';
 import { appendFile as appendFile } from 'fs';
 import { join as PATH } from 'path';
-import safeStringify from 'fast-safe-stringify';
 
 type log = (msg: any) => void;
 
@@ -160,13 +159,13 @@ export class loggerClient {
                         if (severity === 'error' && msg && msg.stack)
                             switch (typeof msg.stack) {
                                 case 'object':
-                                    msg = '\n\n' + safeStringify(msg.stack, null, 1) + '\n';
+                                    msg = '\n\n' + JSON.stringify(msg.stack, null, 1) + '\n';
                                     break;
                                 case 'string':
                                     msg = msg.stack;
                                     break;
                             }
-                        else msg = '\n\n' + safeStringify(msg, null, 1) + '\n';
+                        else msg = '\n\n' + JSON.stringify(msg, null, 1) + '\n';
                         break;
                     case 'number':
                     case 'bigint':
