@@ -4,7 +4,6 @@ const ipc = require("fast-ipc");
 const recurdir = require("recurdir");
 const fs_1 = require("fs");
 const path_1 = require("path");
-const fast_safe_stringify_1 = require("fast-safe-stringify");
 class loggerServer {
     constructor(options) {
         this.pending = {};
@@ -113,14 +112,14 @@ class loggerClient {
                         if (severity === 'error' && msg && msg.stack)
                             switch (typeof msg.stack) {
                                 case 'object':
-                                    msg = '\n\n' + fast_safe_stringify_1.default(msg.stack, null, 1) + '\n';
+                                    msg = '\n\n' + JSON.stringify(msg.stack, null, 1) + '\n';
                                     break;
                                 case 'string':
                                     msg = msg.stack;
                                     break;
                             }
                         else
-                            msg = '\n\n' + fast_safe_stringify_1.default(msg, null, 1) + '\n';
+                            msg = '\n\n' + JSON.stringify(msg, null, 1) + '\n';
                         break;
                     case 'number':
                     case 'bigint':
