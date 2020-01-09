@@ -131,7 +131,7 @@ class loggerClient {
         }
         for (let fatal of ['unhandledRejection', 'uncaughtException'])
             process.on(fatal, (err) => {
-                this.ipcClient.send('fatal', [this.system, this.cluster, '\n' + (err.stack || err)]);
+                this.ipcClient.send('fatal', [this.system, this.cluster, '\n' + (err ? (err.stack || err) : err)]);
                 process.exit();
             });
     }
