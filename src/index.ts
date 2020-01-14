@@ -67,7 +67,7 @@ export class loggerServer {
                     alignedSystem = alignText((arr[0] as string).toUpperCase(), 7, '-');
                 return {
                     raw: `${date} ¦ [${arr[1].length > 1 ? '' : '0'}${arr[1]}] ${alignedSystem} ¦ ${alignedSeverity} ¦ ${arr[2]}`,
-                    color: `${color.black + color.bright}${date} \x1b[30m\x1b[1m¦ ${arr[1] === '0' ? color.bright : color.dim}${color.cyan}[${arr[1].length > 1 ? '' : '0'}${arr[1]}] ${alignedSystem} \x1b[30m\x1b[1m¦ ${colorMap[severity]}${alignedSeverity} \x1b[30m\x1b[1m¦ ${color.white}${arr[2]}`
+                    color: `${color.black + color.bright}${date} \x1b[30m\x1b[1m¦ ${arr[1] === '0' ? color.bright : color.dim}${color.cyan}[${arr[1].length > 1 ? '' : '0'}${arr[1]}] ${alignedSystem} \x1b[30m\x1b[1m¦ ${colorMap[severity]}${alignedSeverity} \x1b[30m\x1b[1m¦ ${color.white}${arr[2]}${color.reset}`
                 }
             }
 
