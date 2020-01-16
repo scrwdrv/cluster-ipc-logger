@@ -1,6 +1,6 @@
 {
   "name": "cluster-ipc-logger",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "This logger is designed to collect logs from cluster workers, child processes even independent node.js processes through IPC (Inter-Process Communication).",
   "main": "index.js",
   "scripts": {

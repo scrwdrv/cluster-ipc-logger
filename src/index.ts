@@ -129,15 +129,8 @@ export class loggerClient {
 
                 switch (typeof msg) {
                     case 'object':
-                        if (severity === 'error' && msg && msg.stack)
-                            switch (typeof msg.stack) {
-                                case 'object':
-                                    msg = '\n\n' + JSON.stringify(msg.stack, null, 1) + '\n';
-                                    break;
-                                case 'string':
-                                    msg = msg.stack;
-                                    break;
-                            }
+                        if (msg instanceof Error)
+                            msg = msg.stack || msg.message || msg.toString();
                         else msg = '\n\n' + JSON.stringify(msg, null, 1) + '\n';
                         break;
                     case 'number':
