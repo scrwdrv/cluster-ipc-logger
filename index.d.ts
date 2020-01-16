@@ -5,9 +5,7 @@ export declare class loggerServer {
     private pending;
     private timezoneOffset;
     private listeners;
-    debug: boolean;
     constructor(options: {
-        debug: boolean;
         directory: string;
         saveInterval: number;
     });
@@ -18,6 +16,7 @@ export declare class loggerClient {
     private system;
     private cluster;
     private ipcClient;
+    private timezoneOffset;
     info: log;
     warn: log;
     error: log;
@@ -25,6 +24,8 @@ export declare class loggerClient {
     constructor(options: {
         system: string;
         cluster: number | string;
+        debug?: boolean;
     });
+    private formatLog;
 }
 export {};
