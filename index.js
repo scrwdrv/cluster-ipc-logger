@@ -67,9 +67,12 @@ exports.loggerServer = loggerServer;
 class loggerClient {
     constructor(options) {
         this.timezoneOffset = new Date().getTimezoneOffset() * 60000;
+        this.debugMode = true;
         this.system = options.system;
         this.cluster = options.cluster.toString();
         this.ipcClient = new ipc.client('logger');
+        if (options.debug === false)
+            this.debugMode = false;
         for (let severity of ['info', 'warn', 'error', 'debug']) {
             this[severity] = (msg) => {
                 switch (typeof msg) {
@@ -86,7 +89,7 @@ class loggerClient {
                 }
                 const log = this.formatLog(severity, msg);
                 this.ipcClient.send(severity, [this.system, this.cluster, log.raw]);
-                if (options.debug === false && severity === 'debug')
+                if (!this.debugMode && severity === 'debug')
                     return;
                 console.log(log.color);
             };

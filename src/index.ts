@@ -113,6 +113,7 @@ export class loggerClient {
     public warn: log;
     public error: log;
     public debug: log;
+    public debugMode: boolean = true;
 
     constructor(options: {
         system: string;
@@ -123,6 +124,7 @@ export class loggerClient {
         this.system = options.system;
         this.cluster = options.cluster.toString();
         this.ipcClient = new ipc.client('logger');
+        if (options.debug === false) this.debugMode = false;
 
         for (let severity of ['info', 'warn', 'error', 'debug']) {
             this[severity] = (msg: any) => {
@@ -142,7 +144,7 @@ export class loggerClient {
                 const log = this.formatLog(severity, msg);
 
                 this.ipcClient.send(severity, [this.system, this.cluster, log.raw])
-                if (options.debug === false && severity === 'debug') return;
+                if (!this.debugMode && severity === 'debug') return;
                 console.log(log.color);
             }
         }

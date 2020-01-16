@@ -21,6 +21,7 @@ export declare class loggerClient {
     warn: log;
     error: log;
     debug: log;
+    debugMode: boolean;
     constructor(options: {
         system: string;
         cluster: number | string;
