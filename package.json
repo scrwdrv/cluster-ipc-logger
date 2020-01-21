@@ -1,6 +1,6 @@
 {
   "name": "cluster-ipc-logger",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "description": "This logger is designed to collect logs from cluster workers, child processes even independent node.js processes through IPC (Inter-Process Communication).",
   "main": "index.js",
   "scripts": {
@@ -24,10 +24,10 @@
   },
   "homepage": "https://github.com/scrwdrv/cluster-ipc-logger#readme",
   "dependencies": {
-    "fast-ipc": "^1.0.6",
-    "recurdir": "^1.0.5"
+    "fast-ipc": "^1.0.9",
+    "recurdir": "^1.0.9"
   },
   "devDependencies": {
-    "@types/node": "^13.1.0"
+    "@types/node": "^13.1.8"
   }
 }
